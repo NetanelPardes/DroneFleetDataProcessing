@@ -32,6 +32,7 @@ namespace DroneFleetDataProcessing.src
                 IsStatus(drone.Status) &&
                 BatteryHealthValidationByStatus(drone.BatteryHealth, drone.Status))
             {
+
                 return true;
             }
             return false;
@@ -99,7 +100,7 @@ namespace DroneFleetDataProcessing.src
             }
             return false;
         }
-        public bool IsFlightHours(int flightHours)
+        public bool IsFlightHours(double flightHours)
         {
             if (flightHours < 0.0 || flightHours > 2500.0)
             {
@@ -115,7 +116,7 @@ namespace DroneFleetDataProcessing.src
             }
             return true;
         }
-        public bool IsMaxRangeKm(int maxRangeKm)
+        public bool IsMaxRangeKm(double maxRangeKm)
         {
             if (maxRangeKm < 1 || maxRangeKm > 150)
             {
