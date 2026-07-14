@@ -13,11 +13,11 @@ public class Drone
 
     public string Base_location { get; init; }
     
-    public float FlightHours { get; init; }
+    public double FlightHours { get; init; }
 
     public int BatteryHealth { get; init; }
     
-    public float MaxRangeKm { get; init; }
+    public double MaxRangeKm { get; init; }
 
     public int MissionsCompleted { get; init; }
 
