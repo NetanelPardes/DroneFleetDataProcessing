@@ -24,6 +24,8 @@ DronesManager : מנהל תהליך המערכת
 
 Logger: מדפיס למסך
 
+PathManager : מנהל את תהליך הנתיבים במערכת
+
 ## חלוקת העבודה
 
 ### עבודה משותפת:
@@ -36,13 +38,15 @@ Exceptions
 
 QueryDrones
 
-### נתנאל:
+### יצחק:
 
 drone
 
 Validation
 
-### יצחק:
+PathManager
+
+### נתנאל:
 
 logger
 
