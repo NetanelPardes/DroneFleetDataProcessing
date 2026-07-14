@@ -42,16 +42,20 @@ QueryDrones
 
 drone
 
-Validation
-
-PathManager
-
-### נתנאל:
-
-logger
-
 ReadDronesFile
 
 FileSerialization
 
-WriteTextToFile
+logger
+
+### נתנאל:
+
+Validation
+
+PathManager
+
+## todo list
+פייפליין
+שאילתות
+שגיאות
+logger
