@@ -43,6 +43,7 @@ namespace DroneFleetDataProcessing.src
         public bool IsUniqueId(int id)
         {
             if (id <= 0 || Ids.Contains(id))
+
             {
                 return false;
             }
@@ -68,7 +69,11 @@ namespace DroneFleetDataProcessing.src
             {
                 return false;
             }
-            if (!int.TryParse(serial[1], out int num) || num < 1000 || num > 9999)
+            if (serial[1].Length != 4)
+            {
+                return false;
+            }
+            if (!int.TryParse(serial[1], out int num))
             {
                 return false;
             }
