@@ -24,9 +24,9 @@ namespace DroneFleetDataProcessing.src
             return Path.Combine(_basePath, "test_scenarios", filename);
         }
 
-        public string getOutputPath()
+        public string getOutputPath(string filename)
         {
-            return (Path.Combine(_basePath, "output"));
+            return (Path.Combine(_basePath, "output" , filename));
         }
     }
 }
