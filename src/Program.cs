@@ -1,10 +1,11 @@
 ﻿using System;
-namespace DroneFleetDataProcessing
+namespace DroneFleetDataProcessing.src
 {
     class Program
     {
         static void Main()
         {
+
 
         }
     }
