@@ -9,6 +9,9 @@ namespace DroneFleetDataProcessing.src
             Console.WriteLine(p.getInputRawPath("drones_raw.json"));
             Console.WriteLine(p.getInputTestScenariosPath("drones_empty.json"));
             Console.WriteLine(p.getOutputPath());
+            
+
+
         }
     }
 }

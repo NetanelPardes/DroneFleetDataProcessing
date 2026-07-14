@@ -16,7 +16,7 @@ namespace DroneFleetDataProcessing.src
         }
         public string getInputRawPath(string filename)
         {
-            return Path.Combine(_basePath,"raw", filename);
+            return Path.Combine(_basePath,"input","raw", filename);
         }
 
         public string getInputTestScenariosPath(string filename)
