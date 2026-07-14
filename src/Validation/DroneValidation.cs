@@ -12,11 +12,12 @@ namespace DroneFleetDataProcessing.src
     {
         public List<int> Ids { get; set; }
 
-        public List<string> SerialNumber { get; set; }
+        public List<string> SerialNumbers { get; set; }
 
         public DroneValidation()
         {
             Ids = new List<int>();
+            SerialNumbers = new List<string>();
         }
         public bool droneValidation(Drone drone)
         {
@@ -32,6 +33,8 @@ namespace DroneFleetDataProcessing.src
                 IsStatus(drone.Status) &&
                 BatteryHealthValidationByStatus(drone.BatteryHealth, drone.Status))
             {
+                Ids.Add(drone.Id);
+                SerialNumbers.Add(drone.SerialNumber);
 
                 return true;
             }
@@ -51,7 +54,7 @@ namespace DroneFleetDataProcessing.src
             {
                 return false;
             }
-            if (SerialNumber.Contains(serialNumber))
+            if (SerialNumbers.Contains(serialNumber))
             {
                 return false;
             }
