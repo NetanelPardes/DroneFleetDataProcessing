@@ -13,20 +13,30 @@ namespace DroneFleetDataProcessing.src
         public PathManager()
         {
             _basePath = Directory.GetCurrentDirectory();
+
         }
         public string getInputRawPath(string filename)
         {
-            return Path.Combine(_basePath,"input","raw", filename);
+            return Path.Combine(_basePath, "input", "raw", filename);
         }
 
         public string getInputTestScenariosPath(string filename)
         {
-            return Path.Combine(_basePath, "test_scenarios", filename);
+            return Path.Combine(_basePath, "input", "test_scenarios", filename);
         }
+        public string getOutputDirPath()
+        {
+            return (Path.Combine(_basePath, "output"));
+        }
+
 
         public string getOutputPath(string filename)
         {
-            return (Path.Combine(_basePath, "output" , filename));
+            if (!Directory.Exists(getOutputDirPath()))
+            {
+                Directory.CreateDirectory(getOutputDirPath());
+            }
+            return (Path.Combine(_basePath, "output", filename));
         }
     }
 }
