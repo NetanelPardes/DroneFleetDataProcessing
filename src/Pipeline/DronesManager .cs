@@ -31,12 +31,11 @@ namespace DroneFleetDataProcessing.src
             }
             return validDrons;
         }
-        public string GetSummary()
+        public void GetSummary()
         {
             string path = _pathManager.getOutputPath("drones_clean.json");
             List<Drone> drones = ReadDronesFile.Read(path);
             SummeryDrones summeryDrones = new SummeryDrones(drones, totalDrones);
-            _logger.WriteLog("");
         }
         public void go()
         {
@@ -89,6 +88,7 @@ namespace DroneFleetDataProcessing.src
 
                 //Step 5
                 _logger.WriteLog("Step 5: Performing analysis...");
+                GetSummary();
 
             }
             catch (FileNotFoundException ex)
