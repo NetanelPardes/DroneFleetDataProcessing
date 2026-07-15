@@ -63,7 +63,27 @@ public class SummeryDrones
     private string Top5()
     {
         string result = "TOP 5 DRONES BY FLIGHT HOURS";
-        var top5 = _drones.
+        var top5 = _drones
+            .OrderByDescending(drone => drone.FlightHours)
+            .Take(5)
+            .Select(drone => new
+            {
+                SerialNumber = drone.SerialNumber,
+                Model = drone.Model,
+                FlightHours = drone.FlightHours
+            })
+            .ToList();
+        if (result.Length == 0)
+        {
+            result += "No results found.";
+        }
+        foreach (var drone in top5)
+        {
+            result += $"{drone.SerialNumber} | " +
+                $"{drone.Model} | " +
+                $"{drone.FlightHours}";
+        }
+        return result;
     }
     private string AvilableDronesNoDuplicates()
     {
