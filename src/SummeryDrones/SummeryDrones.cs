@@ -37,28 +37,18 @@ public class SummeryDrones
     private string NonOptional()
     {
         string result = "NON-OPERATIONAL DRONES";
-        var nonOptionals = _drones
+        var nonOptional = _drones
             .Where(drone => drone.Status != "Operational")
             .Select(drone => new
             {
                 SerialNumber = drone.SerialNumber,
                 Model = drone.Model,
-                Base_location = drone.Base_location,
+                Base = drone.Base_location,
                 Status = drone.Status
             })
             .ToList();
-        if (result.Length == 0)
-        {
-            result += "No results found.";
-        }
-        foreach (var drone in nonOptionals)
-        {
-            result += $"{drone.SerialNumber} | " +
-                $"{drone.Model} | " +
-                $"{drone.Base_location} | " +
-                $"{drone.Status}\n";
-        }
-        return result;
+        
+
     }
     private string Top5()
     {
@@ -66,18 +56,67 @@ public class SummeryDrones
     }
     private string AvilableDronesNoDuplicates()
     {
+        string result = "AVAILABLE DRONE MODELS\n";
+        var avilableDronesNoDuplicates = _drones
+            .Select(d => d.Model)
+            .Distinct()
+            .ToList();
+        if (avilableDronesNoDuplicates.Count == 0)
+        {
+            return result + "No results found";
+        }
+        foreach (var item in avilableDronesNoDuplicates)
+        {
+            result += item;
+        }
+        return result;
 
     }
     private string ByBase()
     {
-
+        string result = "DRONES BY BASE\n";
+        var byBase = _drones
+            .GroupBy(b => b.Base_location)
+            .Select(s => new
+            {
+                Base = s.Key,
+                Count = s.Count()
+            })
+            .ToList();
+        if (byBase.Count == 0)
+        {
+            return result + "No results found";
+        }
+        foreach (var item in byBase)
+        {
+            result += item.Base + ": " + item.Count;
+        }
+        return result;
     }
     private string AverageBatteryHelth()
     {
-
+        string result = "AVERAGE BATTERY HEALTH BY MODEL\n";
+        var highestTotalComplete = _drones
+           .GroupBy(r => r.Model)
+             .Select(s => new
+             {
+                 Model = s.Key,
+                 AverageBattery = s.Average(t => t.BatteryHealth)
+             })
+             .ToList();
+        if (highestTotalComplete.Count == 0)
+        {
+            return result + "No results found";
+        }
+        foreach (var item in highestTotalComplete)
+        {
+            result += item.Model + ": " + item.AverageBattery;
+        }
+        return result;
     }
     private string HighestTotalCompleted()
     {
+        string result = "MODEL WITH HIGHEST TOTAL COMPLETED MISSIONS\n";
         var highestTotalComplete = _drones
            .GroupBy(r => r.Model)
              .Select(s => new
@@ -88,12 +127,13 @@ public class SummeryDrones
              .OrderByDescending(a => a.TotalMissions)
              .Take(1)
              .ToList();
-        return "MODEL WITH HIGHEST TOTAL COMPLETED MISSIONS\n" +
+        return result +
             $"Model: {highestTotalComplete[0].Model}\nTotal completed missions: {highestTotalComplete[0].TotalMissions}\n";
 
     }
     private string HighestAverageFlyHouersModels()
     {
+        string result = "SELECTED ADDITIONAL ANALYSIS\n";
         var HighestAverageFly = _drones
              .GroupBy(r => r.Model)
              .Select(s => new
@@ -104,7 +144,7 @@ public class SummeryDrones
              .OrderByDescending(x => x.Avg)
              .Take(3)
              .ToList();
-        return "SELECTED ADDITIONAL ANALYSIS\n" +
+        return result +
             "Analysis name: THE THREE MODELS WITH THE HIGHEST AVERAGE FLIGHT TIME\r\n\n" +
             $"Model: {HighestAverageFly[0].Model} With average flight {HighestAverageFly[0].Avg}\n" +
             $"Model: {HighestAverageFly[1].Model} With average flight {HighestAverageFly[0].Avg}\n" +
