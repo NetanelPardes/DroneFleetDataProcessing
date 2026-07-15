@@ -77,14 +77,19 @@ public class SummeryDrones
         {
             result += "No results found.\n";
         }
-        int i = 1;
-        foreach (var drone in top5)
+        for (int i = 1; i <= 5; i++)
         {
-            result += i + $". {drone.SerialNumber} | " +
-                $"{drone.Model} | " +
-                $"{drone.FlightHours.ToString("F2")} "
-                +"\n";
-            i++;
+            if (i > top5.Count)
+            {
+                result += $"{i}. no exists";
+            }
+            else
+            {
+                result += $"{i}. {top5[i-1].SerialNumber} | " +
+                    $"{top5[i - 1].Model} | " +
+                    $"{top5[i - 1].FlightHours.ToString("F2")} "
+                    + "\n";
+            }
         }
         return result;
     }
