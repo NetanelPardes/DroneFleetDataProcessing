@@ -18,7 +18,7 @@ public class SummeryDrones
     public string GetQueries()
     {
         return $"DRONE FLEET ANALYSIS REPORT\n" +
-            $"{Summary()}" +
+            $"{Summary()}\n" +
             $"{NonOptional()}\n" +
             $"{Top5()}\n" +
             $"{AvilableDronesNoDuplicates()}\n" +
@@ -36,7 +36,7 @@ public class SummeryDrones
     }
     private string NonOptional()
     {
-        string result = "NON-OPERATIONAL DRONES";
+        string result = "NON-OPERATIONAL DRONES\n";
         var nonOptionals = _drones
             .Where(drone => drone.Status != "Operational")
             .Select(drone => new
@@ -49,7 +49,7 @@ public class SummeryDrones
             .ToList();
         if (result.Length == 0)
         {
-            result += "No results found.";
+            result += "No results found.\n";
         }
         foreach (var drone in nonOptionals)
         {
@@ -62,7 +62,7 @@ public class SummeryDrones
     }
     private string Top5()
     {
-        string result = "TOP 5 DRONES BY FLIGHT HOURS";
+        string result = "TOP 5 DRONES BY FLIGHT HOURS\n";
         var top5 = _drones
             .OrderByDescending(drone => drone.FlightHours)
             .Take(5)
@@ -75,13 +75,13 @@ public class SummeryDrones
             .ToList();
         if (result.Length == 0)
         {
-            result += "No results found.";
+            result += "No results found.\n";
         }
         foreach (var drone in top5)
         {
             result += $"{drone.SerialNumber} | " +
                 $"{drone.Model} | " +
-                $"{drone.FlightHours}";
+                $"{drone.FlightHours}\n";
         }
         return result;
     }
