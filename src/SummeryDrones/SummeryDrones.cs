@@ -72,7 +72,22 @@ public class SummeryDrones
                 SerialNumber = drone.SerialNumber,
                 Model = drone.Model,
                 FlightHours = drone.FlightHours
-
+            })
+            .ToList();
+        if (result.Length == 0)
+        {
+            result += "No results found.\n";
+        }
+        int i = 1;
+        foreach (var drone in top5)
+        {
+            result += i + $". {drone.SerialNumber} | " +
+                $"{drone.Model} | " +
+                $"{drone.FlightHours.ToString("F2")} "
+                + "\n";
+            i++;
+        }
+        return result;
     }
     private string AvilableDronesNoDuplicates()
     {
