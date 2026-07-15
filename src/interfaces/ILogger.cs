@@ -6,4 +6,7 @@ using System.Threading.Tasks;
 
 namespace DroneFleetDataProcessing.src.interfaces;
 
-interface ILogger { public void WriteLog(string message); }
+public interface ILogger 
+{ 
+    public void WriteLog(string message); 
+}
