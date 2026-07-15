@@ -17,6 +17,7 @@ class ReadDronesFile
         {
             throw new DeserializationReturnedNullException("Deserialization returned null.");
         }
+
         if (drones.Count == 0)
         {
             throw new EmptyDroneFileException("The raw drones file contains no records.");
