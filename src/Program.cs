@@ -1,18 +1,20 @@
-<<<<<<< HEAD
-﻿
-=======
-﻿using System;
+﻿using DroneFleetDataProcessing.src.interfaces;
+using DroneFleetDataProcessing.src.loggers;
+using System;
 namespace DroneFleetDataProcessing.src
 {
     class Program
     {
         static void Main()
         {
-            PathManager p = new PathManager();
-            
+            ILogger logger = new ConsoleLogger();
+            DroneValidation validation = new DroneValidation();
+            PathManager pathManager = new PathManager();
 
+            DronesManager dronesManager = new DronesManager(logger, validation, pathManager);
 
-        }
+            dronesManager.go();
+    }
     }
 }
->>>>>>> 8f295ba92aedb659848c3c7c04b5362a08b0f47a
+
