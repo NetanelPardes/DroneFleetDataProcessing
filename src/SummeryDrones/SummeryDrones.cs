@@ -68,6 +68,18 @@ public class SummeryDrones
     }
     private string HighestTotalCompleted()
     {
+        var highestTotalComplete = _drones
+           .GroupBy(r => r.Model)
+             .Select(s => new
+             {
+                 Model = s.Key,
+                 TotalMissions = s.Sum(t => t.MissionsCompleted)
+             })
+             .OrderByDescending(a => a.TotalMissions)
+             .Take(1)
+             .ToList();
+        return "MODEL WITH HIGHEST TOTAL COMPLETED MISSIONS\n" +
+            $"Model: {highestTotalComplete[0].Model}\nTotal completed missions: {highestTotalComplete[0].TotalMissions}\n";
 
     }
     private string HighestAverageFlyHouersModels()
@@ -83,9 +95,9 @@ public class SummeryDrones
              .Take(3)
              .ToList();
         return "SELECTED ADDITIONAL ANALYSIS\n" +
-            "The three models with the highest average flight tim\n" +
-            $"Analysis name: {HighestAverageFly[0].Model} With average flight {HighestAverageFly[0].Avg}\n" +
-            $"Analysis name: {HighestAverageFly[1].Model} With average flight {HighestAverageFly[0].Avg}\n" +
-            $"Analysis name: {HighestAverageFly[2].Model} With average flight {HighestAverageFly[0].Avg}\n";
+            "Analysis name: THE THREE MODELS WITH THE HIGHEST AVERAGE FLIGHT TIME\r\n\n" +
+            $"Model: {HighestAverageFly[0].Model} With average flight {HighestAverageFly[0].Avg}\n" +
+            $"Model: {HighestAverageFly[1].Model} With average flight {HighestAverageFly[0].Avg}\n" +
+            $"Model: {HighestAverageFly[2].Model} With average flight {HighestAverageFly[0].Avg}\n";
     }
 }
