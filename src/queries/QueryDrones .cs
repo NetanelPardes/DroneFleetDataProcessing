@@ -41,4 +41,8 @@ public class QueryDrones
     {
 
     }
+    private string 3HighestAverageFlyHouersModels()
+    {
+
+    }
 }
