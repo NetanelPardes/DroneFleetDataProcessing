@@ -13,9 +13,16 @@ public class QueryDrones
     {
         _drones = drones;
     }
-    public string PlayQueries()
+    public string GetQueries()
     {
-
+        return $"DRONE FLEET ANALYSIS REPORT\n\n" +
+            $"{NonOptional()}\n" +
+            $"{Top5()}\n" +
+            $"{AvilableDronesNoDuplicates}\n" +
+            $"{ByBase}\n" +
+            $"{AverageBatteryHelth()}\n" +
+            $"{HighestTotalCompleted()}\n" +
+            $"{HighestAverageFlyHouersModels()}\n";
     }
     private string NonOptional()
     {
