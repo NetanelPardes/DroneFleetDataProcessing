@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DroneFleetDataProcessing.src.utiles;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -81,8 +82,7 @@ namespace DroneFleetDataProcessing.src
         }
         public bool IsModel(string model)
         {
-            List<string> models = ["Falcon-X", "Raven-M", "SkyEye-2", "CargoBee", "Storm-4", "Scout-Lite" ];
-            if (models.Contains(model))
+            if (Consts.models.Contains(model))
             {
                 return true;
             }
@@ -90,9 +90,7 @@ namespace DroneFleetDataProcessing.src
         }
         public bool IsCategory(string category)
         {
-            List<string> categorys = ["Recon" ,"Patrol"  ,"Mapping" ,"Delivery" ,"Search"];
-
-            if (categorys.Contains(category))
+            if (Consts.categorys.Contains(category))
             {
                 return true;
             }
@@ -100,8 +98,7 @@ namespace DroneFleetDataProcessing.src
         }
         public bool IsLocation_base(string location_base)
         {
-            List<string> location_bases = ["North" ,"South" ,"Central" ,"East" ,"West"];
-            if (location_bases.Contains(location_base))
+            if (Consts.location_bases.Contains(location_base))
             {
                 return true;
             }
@@ -141,8 +138,7 @@ namespace DroneFleetDataProcessing.src
         }
         public bool IsStatus(string status)
         {
-            List<string> statuss = ["Operational", "Maintenance", "Grounded", "Training"];
-            if (statuss.Contains(status))
+            if (Consts.statuss.Contains(status))
             {
                 return true;
             }
