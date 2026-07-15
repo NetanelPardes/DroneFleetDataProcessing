@@ -17,8 +17,8 @@ public class SummeryDrones
     }
     public string GetQueries()
     {
-        return $"DRONE FLEET ANALYSIS REPORT\n" +
-            $"{Summary()}" +
+        return $"DRONE FLEET ANALYSIS REPORT\n\n" +
+            $"{Summary()}\n" +
             $"{NonOptional()}\n" +
             $"{Top5()}\n" +
             $"{AvilableDronesNoDuplicates()}\n" +
@@ -36,7 +36,7 @@ public class SummeryDrones
     }
     private string NonOptional()
     {
-        string result = "NON-OPERATIONAL DRONES";
+        string result = "NON-OPERATIONAL DRONES \n";
         var nonOptionals = _drones
             .Where(drone => drone.Status != "Operational")
             .Select(drone => new
@@ -62,7 +62,7 @@ public class SummeryDrones
     }
     private string Top5()
     {
-        string result = "TOP 5 DRONES BY FLIGHT HOURS";
+        string result = "TOP 5 DRONES BY FLIGHT HOURS\n";
         var top5 = _drones
             .OrderByDescending(drone => drone.FlightHours)
             .Take(5)
@@ -77,11 +77,14 @@ public class SummeryDrones
         {
             result += "No results found.";
         }
+        int i = 1;
         foreach (var drone in top5)
         {
-            result += $"{drone.SerialNumber} | " +
+            result += i + $". {drone.SerialNumber} | " +
                 $"{drone.Model} | " +
-                $"{drone.FlightHours}";
+                $"{drone.FlightHours.ToString("F2")} "
+                +"\n";
+            i++;
         }
         return result;
     }
@@ -94,11 +97,11 @@ public class SummeryDrones
             .ToList();
         if (avilableDronesNoDuplicates.Count == 0)
         {
-            return result + "No results found";
+            return result + "No results found\n";
         }
         foreach (var item in avilableDronesNoDuplicates)
         {
-            result += item;
+            result += item + "\n";
         }
         return result;
 
@@ -116,7 +119,7 @@ public class SummeryDrones
             .ToList();
         if (byBase.Count == 0)
         {
-            return result + "No results found";
+            return result + "No results found\n";
         }
         foreach (var item in byBase)
         {
@@ -137,7 +140,7 @@ public class SummeryDrones
              .ToList();
         if (highestTotalComplete.Count == 0)
         {
-            return result + "No results found";
+            return result + "No results found\n";
         }
         foreach (var item in highestTotalComplete)
         {
