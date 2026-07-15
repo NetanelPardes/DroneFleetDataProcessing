@@ -13,7 +13,12 @@ namespace DroneFleetDataProcessing.src
 
             DronesManager dronesManager = new DronesManager(logger, validation, pathManager);
 
-            dronesManager.go();
-    }
+            dronesManager.go(pathManager.getInputRawPath("drones_raw.json"));
+            dronesManager.go(pathManager.getInputTestScenariosPath("drones_all_invalid.json"));
+            dronesManager.go(pathManager.getInputTestScenariosPath("drones_empty.json"));
+            dronesManager.go(pathManager.getInputTestScenariosPath("drones_malformed.json"));
+            dronesManager.go(pathManager.getInputTestScenariosPath("drones_null.json"));
+
+        }
     }
 }

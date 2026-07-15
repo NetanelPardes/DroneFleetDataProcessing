@@ -49,15 +49,15 @@ namespace DroneFleetDataProcessing.src
             string resultPath = _pathManager.getOutputPath("analysis_report.txt");
             File.WriteAllText(resultPath, summary);
         }
-        public void go()
+        public void go(string source)
         {
             try
             {
-                _logger.WriteLog("=== Drone Fleet Data Processing System ===");
+                _logger.WriteLog("===Drone Fleet Data Processing System ===");
 
                 //Step 1
                 _logger.WriteLog("Step 1: Reading raw data...");
-                List<Drone> myDroneList = ReadDronesFile.Read(_pathManager.getInputRawPath("drones_raw.json"));
+                List<Drone> myDroneList = ReadDronesFile.Read(source);
                 totalDrones = myDroneList.Count();
                 _logger.WriteLog($"Read {myDroneList.Count} records from raw file");
 
@@ -88,7 +88,7 @@ namespace DroneFleetDataProcessing.src
                 _logger.WriteLog($"Report generated successfully: analysis_report.txt ");
 
                 //Finaly
-                _logger.WriteLog("=== Process completed successfully!===");
+                _logger.WriteLog("=== Process completed successfully!===\n");
 
             }
             catch (FileNotFoundException ex)
@@ -97,27 +97,27 @@ namespace DroneFleetDataProcessing.src
             }
             catch (UnauthorizedAccessException ex)
             {
-                _logger.WriteLog($"Error: Access to {ex.Message} denied");
+                _logger.WriteLog($"Error: Access to {ex.Message} denied\n");
             }
             catch (JsonException ex)
             {
-                _logger.WriteLog($"Error: Invalid JSON - {ex.Message}");
+                _logger.WriteLog($"Error: Invalid JSON - {ex.Message}\n");
             }
             catch (DeserializationReturnedNullException ex)
             {
-                _logger.WriteLog($"Error: Deserialization returned null - {ex.Message}");
+                _logger.WriteLog($"Error: Deserialization returned null - {ex.Message}\n");
             }
             catch (EmptyDroneFileException ex)
             {
-                _logger.WriteLog($"Error: Empty drone file - {ex.Message}");
+                _logger.WriteLog($"Error: Empty drone file - {ex.Message}\n");
             }
             catch (NoValidDronesException ex)
             {
-                _logger.WriteLog($"Error: No valid drones - {ex.Message}");
+                _logger.WriteLog($"Error: No valid drones - {ex.Message}\n");
             }
             catch (IOException ex)
             {
-                _logger.WriteLog($"Error: File operation failed - {ex.Message}");
+                _logger.WriteLog($"Error: File operation failed - {ex.Message}\n");
             }
         }
     }
