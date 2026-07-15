@@ -50,6 +50,20 @@ public class QueryDrones
     }
     private string HighestAverageFlyHouersModels()
     {
-
+        var HighestAverageFly = _drones
+             .GroupBy(r => r.Model)
+             .Select(s => new
+             {
+                 Model = s.Key,
+                 Avg = s.Average(t => t.FlightHours)
+             })
+             .OrderByDescending(x => x.Avg)
+             .Take(3)
+             .ToList();
+        return "SELECTED ADDITIONAL ANALYSIS\n" +
+            "The three models with the highest average flight tim\n" +
+            $"Analysis name: {HighestAverageFly[0].Model} With average flight {HighestAverageFly[0].Avg}\n" +
+            $"Analysis name: {HighestAverageFly[1].Model} With average flight {HighestAverageFly[0].Avg}\n" +
+            $"Analysis name: {HighestAverageFly[2].Model} With average flight {HighestAverageFly[0].Avg}\n";
     }
 }
