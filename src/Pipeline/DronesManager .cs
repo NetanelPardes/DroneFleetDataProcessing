@@ -41,7 +41,7 @@ namespace DroneFleetDataProcessing.src
         public string RunSummary()
         {
             string sourcePath = _pathManager.getOutputPath("drones_clean.json");
-            List<Drone> drones = ReadDronesFile.Read(sourcePath);
+            List<Drone> drones = _droneReader.Read(sourcePath);
             SummeryDrones summeryDrones = new SummeryDrones(drones, _totalDrones);
             string result = summeryDrones.GetQueries();
             return result;
@@ -59,7 +59,7 @@ namespace DroneFleetDataProcessing.src
 
                 //Step 1
                 _logger.WriteLog("Step 1: Reading raw data...");
-                List<Drone> myDroneList = ReadDronesFile.Read(source);
+                List<Drone> myDroneList = _droneReader.Read(source);
                 _totalDrones = myDroneList.Count();
                 _logger.WriteLog($"Read {myDroneList.Count} records from raw file");
 
@@ -76,7 +76,7 @@ namespace DroneFleetDataProcessing.src
 
                 //Step 4
                 _logger.WriteLog("Step 4: Reloading clean data...");
-                List<Drone> myValidDrones = ReadDronesFile.Read(_pathManager.getOutputPath("drones_clean.json"));
+                List<Drone> myValidDrones = _droneReader.Read(_pathManager.getOutputPath("drones_clean.json"));
                 _logger.WriteLog("Loaded records from clean dataset");
 
                 //Step 5
