@@ -17,7 +17,7 @@ public class SummeryDrones
     }
     public string GetQueries()
     {
-        return $"DRONE FLEET ANALYSIS REPORT\n" +
+        return $"DRONE FLEET ANALYSIS REPORT\n\n" +
             $"{Summary()}\n" +
             $"{NonOptional()}\n" +
             $"{Top5()}\n" +
@@ -36,7 +36,7 @@ public class SummeryDrones
     }
     private string NonOptional()
     {
-        string result = "NON-OPERATIONAL DRONES\n";
+        string result = "NON-OPERATIONAL DRONES \n";
         var nonOptionals = _drones
             .Where(drone => drone.Status != "Operational")
             .Select(drone => new
@@ -77,11 +77,14 @@ public class SummeryDrones
         {
             result += "No results found.\n";
         }
+        int i = 1;
         foreach (var drone in top5)
         {
-            result += $"{drone.SerialNumber} | " +
+            result += i + $". {drone.SerialNumber} | " +
                 $"{drone.Model} | " +
-                $"{drone.FlightHours}\n";
+                $"{drone.FlightHours.ToString("F2")} "
+                +"\n";
+            i++;
         }
         return result;
     }
@@ -94,11 +97,11 @@ public class SummeryDrones
             .ToList();
         if (avilableDronesNoDuplicates.Count == 0)
         {
-            return result + "No results found";
+            return result + "No results found\n";
         }
         foreach (var item in avilableDronesNoDuplicates)
         {
-            result += item;
+            result += item + "\n";
         }
         return result;
 
@@ -110,17 +113,17 @@ public class SummeryDrones
             .GroupBy(b => b.Base_location)
             .Select(s => new
             {
-                Base = s.Key,
+                Base_loc = s.Key,
                 Count = s.Count()
             })
             .ToList();
         if (byBase.Count == 0)
         {
-            return result + "No results found";
+            return result + "No results found\n";
         }
         foreach (var item in byBase)
         {
-            result += item.Base + ": " + item.Count;
+            result += item.Base_loc + ": " + item.Count + "\n";
         }
         return result;
     }
@@ -137,11 +140,11 @@ public class SummeryDrones
              .ToList();
         if (highestTotalComplete.Count == 0)
         {
-            return result + "No results found";
+            return result + "No results found\n";
         }
         foreach (var item in highestTotalComplete)
         {
-            result += item.Model + ": " + item.AverageBattery;
+            result += item.Model + ": " + item.AverageBattery.ToString("F2") + "\n";
         }
         return result;
     }
@@ -176,9 +179,9 @@ public class SummeryDrones
              .Take(3)
              .ToList();
         return result +
-            "Analysis name: THE THREE MODELS WITH THE HIGHEST AVERAGE FLIGHT TIME\r\n\n" +
-            $"Model: {HighestAverageFly[0].Model} With average flight {HighestAverageFly[0].Avg}\n" +
-            $"Model: {HighestAverageFly[1].Model} With average flight {HighestAverageFly[0].Avg}\n" +
-            $"Model: {HighestAverageFly[2].Model} With average flight {HighestAverageFly[0].Avg}\n";
+            "Analysis name: THE THREE MODELS WITH THE HIGHEST AVERAGE FLIGHT TIME\n" +
+            $"Model: {HighestAverageFly[0].Model} With average flight {HighestAverageFly[0].Avg.ToString("F2")}\n" +
+            $"Model: {HighestAverageFly[1].Model} With average flight {HighestAverageFly[0].Avg.ToString("F2")}\n" +
+            $"Model: {HighestAverageFly[2].Model} With average flight {HighestAverageFly[0].Avg.ToString("F2")}\n";
     }
 }
