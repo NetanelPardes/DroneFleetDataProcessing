@@ -12,13 +12,15 @@ namespace DroneFleetDataProcessing.src
         private ILogger _logger;
         private DroneValidation _validation;
         private PathManager _pathManager;
-        int totalDrones = 0;
+        int _totalDrones = 0;
+        IDroneReader _droneReader;
 
-        public DronesManager(ILogger logger, DroneValidation validation, PathManager pathManager)
+        public DronesManager(ILogger logger, DroneValidation validation, PathManager pathManager, IDroneReader droneReader)
         {
             _logger = logger;
             _validation = validation;
             _pathManager = pathManager;
+            _droneReader = droneReader;
         }
         public List<Drone> ValidDrons(List<Drone> myDrones)
         {
@@ -39,8 +41,8 @@ namespace DroneFleetDataProcessing.src
         public string RunSummary()
         {
             string sourcePath = _pathManager.getOutputPath("drones_clean.json");
-            List<Drone> drones = ReadDronesFile.Read(sourcePath);
-            SummeryDrones summeryDrones = new SummeryDrones(drones, totalDrones);
+            List<Drone> drones = _droneReader.Read(sourcePath);
+            SummeryDrones summeryDrones = new SummeryDrones(drones, _totalDrones);
             string result = summeryDrones.GetQueries();
             return result;
         }
@@ -57,8 +59,8 @@ namespace DroneFleetDataProcessing.src
 
                 //Step 1
                 _logger.WriteLog("Step 1: Reading raw data...");
-                List<Drone> myDroneList = ReadDronesFile.Read(source);
-                totalDrones = myDroneList.Count();
+                List<Drone> myDroneList = _droneReader.Read(source);
+                _totalDrones = myDroneList.Count();
                 _logger.WriteLog($"Read {myDroneList.Count} records from raw file");
 
                 //Step 2
@@ -74,7 +76,7 @@ namespace DroneFleetDataProcessing.src
 
                 //Step 4
                 _logger.WriteLog("Step 4: Reloading clean data...");
-                List<Drone> myValidDrones = ReadDronesFile.Read(_pathManager.getOutputPath("drones_clean.json"));
+                List<Drone> myValidDrones = _droneReader.Read(_pathManager.getOutputPath("drones_clean.json"));
                 _logger.WriteLog("Loaded records from clean dataset");
 
                 //Step 5
