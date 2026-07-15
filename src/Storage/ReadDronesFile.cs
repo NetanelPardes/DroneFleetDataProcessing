@@ -1,13 +1,14 @@
 using DroneFleetDataProcessing.src.Exeptions;
+using DroneFleetDataProcessing.src.interfaces;
 using System.Text.Json;
 
 namespace DroneFleetDataProcessing.src;
 
-class ReadDronesFile
+class ReadDronesFile : IDroneReader
 {
-    public static List<Drone> Read(string path)
+    public List<Drone> Read(string source)
     {
-        string text = File.ReadAllText(path);
+        string text = File.ReadAllText(source);
         JsonSerializerOptions options = new JsonSerializerOptions 
         { 
             PropertyNameCaseInsensitive = true
