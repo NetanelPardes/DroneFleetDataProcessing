@@ -37,18 +37,28 @@ public class SummeryDrones
     private string NonOptional()
     {
         string result = "NON-OPERATIONAL DRONES";
-        var nonOptional = _drones
+        var nonOptionals = _drones
             .Where(drone => drone.Status != "Operational")
             .Select(drone => new
             {
                 SerialNumber = drone.SerialNumber,
                 Model = drone.Model,
-                Base = drone.Base_location,
+                Base_location = drone.Base_location,
                 Status = drone.Status
             })
             .ToList();
-        
-
+        if (result.Length == 0)
+        {
+            result += "No results found.";
+        }
+        foreach (var drone in nonOptionals)
+        {
+            result += $"{drone.SerialNumber} | " +
+                $"{drone.Model} | " +
+                $"{drone.Base_location} | " +
+                $"{drone.Status}\n";
+        }
+        return result;
     }
     private string Top5()
     {
