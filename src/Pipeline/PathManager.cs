@@ -24,11 +24,10 @@ namespace DroneFleetDataProcessing.src
         {
             return Path.Combine(_basePath, "input", "test_scenarios", filename);
         }
-        public string getOutputDirPath()
+        private string getOutputDirPath()
         {
             return (Path.Combine(_basePath, "output"));
         }
-
 
         public string getOutputPath(string filename)
         {

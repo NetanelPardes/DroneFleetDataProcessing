@@ -43,7 +43,6 @@ namespace DroneFleetDataProcessing.src
         public bool IsUniqueId(int id)
         {
             if (id <= 0 || Ids.Contains(id))
-
             {
                 return false;
             }

@@ -66,18 +66,30 @@ DR-0050 | CargoBee | East | Grounded
 DR-0067 | CargoBee | East | Grounded
 
 TOP 5 DRONES BY FLIGHT HOURSDR-0064 | Falcon-X | 2490DR-0054 | Storm-4 | 2467.1DR-0044 | Falcon-X | 2436.4DR-0051 | SkyEye-2 | 2386.3DR-0048 | Raven-M | 2374.5
-System.Func`1[System.String]
-System.Func`1[System.String]
+AVAILABLE DRONE MODELS
+CargoBeeScout-LiteStorm-4SkyEye-2Raven-MFalcon-X
+DRONES BY BASE
+East: 23
+West: 16
+North: 12
+Central: 16
+South: 17
+
 AVERAGE BATTERY HEALTH BY MODEL
-CargoBee: 54.785714285714285Scout-Lite: 55.588235294117645Storm-4: 56.666666666666664SkyEye-2: 49.333333333333336Raven-M: 57.57142857142857Falcon-X: 52.06666666666667
+CargoBee: 54.79
+Scout-Lite: 55.59
+Storm-4: 56.67
+SkyEye-2: 49.33
+Raven-M: 57.57
+Falcon-X: 52.07
+
 MODEL WITH HIGHEST TOTAL COMPLETED MISSIONS
 Model: Falcon-X
 Total completed missions: 18083
 
 SELECTED ADDITIONAL ANALYSIS
 Analysis name: THE THREE MODELS WITH THE HIGHEST AVERAGE FLIGHT TIME
-
-Model: Storm-4 With average flight 1366.8916666666667
-Model: Falcon-X With average flight 1366.8916666666667
-Model: SkyEye-2 With average flight 1366.8916666666667
+Model: Storm-4 With average flight 1366.89
+Model: Falcon-X With average flight 1366.89
+Model: SkyEye-2 With average flight 1366.89
 
