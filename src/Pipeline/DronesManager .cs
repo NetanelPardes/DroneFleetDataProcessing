@@ -2,6 +2,7 @@
 using DroneFleetDataProcessing.src.interfaces;
 using DroneFleetDataProcessing.src.queries;
 using System;
+using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 namespace DroneFleetDataProcessing.src
@@ -29,6 +30,10 @@ namespace DroneFleetDataProcessing.src
                     validDrons.Add(item);
                 }
             }
+            if (validDrons.Count == 0)
+            {
+                throw new NoValidDronesException("No valid records found for analysis!");
+            }
             return validDrons;
         }
         public void GetSummary()
@@ -46,24 +51,12 @@ namespace DroneFleetDataProcessing.src
                 //Step 1
                 _logger.WriteLog("Step 1: Reading raw data...");
                 List<Drone> myDroneList = ReadDronesFile.Read(_pathManager.getInputRawPath("drones_raw.json"));
-                if (myDroneList == null)
-                {
-                    throw new DeserializationReturnedNullException("Deserialization returned null.");
-                }
                 totalDrones = myDroneList.Count();
-                if (totalDrones == 0)
-                {
-                    throw new EmptyDroneFileException("The raw drones file contains no records.");
-                }
                 _logger.WriteLog($"Read {myDroneList.Count} records from raw file");
 
                 //Step 2
                 _logger.WriteLog("Step 2: Validating data and creating clean dataset...");
                 List<Drone> myValidDroneList = ValidDrons(myDroneList);
-                if (myValidDroneList.Count == 0)
-                {
-                    throw new NoValidDronesException("No valid records found for analysis!");
-                }
                 _logger.WriteLog($"Valid records: {myValidDroneList.Count}");
                 _logger.WriteLog($"Rejected records: {myDroneList.Count - myValidDroneList.Count}");
 
@@ -75,20 +68,19 @@ namespace DroneFleetDataProcessing.src
                 //Step 4
                 _logger.WriteLog("Step 4: Reloading clean data...");
                 List<Drone> myValidDrones = ReadDronesFile.Read(_pathManager.getOutputPath("drones_clean.json"));
-                if (myValidDrones == null)
-                {
-                    throw new DeserializationReturnedNullException("Reloading the clean dataset returned null.");
-                }
-
-                if (myValidDrones.Count == 0)
-                {
-                    throw new EmptyDroneFileException("The clean drones file contains no records.");
-                }
                 _logger.WriteLog("Loaded records from clean dataset");
 
                 //Step 5
                 _logger.WriteLog("Step 5: Performing analysis...");
                 GetSummary();
+                _logger.WriteLog("Analysis completed successfully");
+
+                //Step 6
+                _logger.WriteLog("Step 6: Generating report...");
+                _logger.WriteLog($"Report generated successfully: analysis_report.txt ");
+
+                //Finaly
+                _logger.WriteLog("=== Process completed successfully!===");
 
             }
             catch (FileNotFoundException ex)
