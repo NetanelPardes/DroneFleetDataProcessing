@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DroneFleetDataProcessing.src.utiles;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -114,42 +115,33 @@ public class SummeryDrones
     private string ByBase()
     {
         string result = "DRONES BY BASE\n";
-        var byBase = _drones
-            .GroupBy(b => b.Base_location)
-            .Select(s => new
-            {
-                Base_loc = s.Key,
-                Count = s.Count()
-            })
-            .ToList();
-        if (byBase.Count == 0)
+
+        foreach (string location in Consts.location_bases)
         {
-            return result + "No results found\n";
+            int count = _drones.Count(d => d.Base_location == location);
+
+            result += $"{location}: {count}\n";
         }
-        foreach (var item in byBase)
-        {
-            result += item.Base_loc + ": " + item.Count + "\n";
-        }
+
         return result;
     }
     private string AverageBatteryHelth()
     {
         string result = "AVERAGE BATTERY HEALTH BY MODEL\n";
-        var highestTotalComplete = _drones
-           .GroupBy(r => r.Model)
-             .Select(s => new
-             {
-                 Model = s.Key,
-                 AverageBattery = s.Average(t => t.BatteryHealth)
-             })
-             .ToList();
-        if (highestTotalComplete.Count == 0)
+        foreach (string model in Consts.models)
         {
-            return result + "No results found\n";
-        }
-        foreach (var item in highestTotalComplete)
-        {
-            result += item.Model + ": " + item.AverageBattery.ToString("F2") + "\n";
+            var dronesByModel = _drones
+                .Where(d => d.Model == model)
+                .ToList();
+            if (dronesByModel.Count == 0)
+            {
+                result += $"{model}: N/A\n";
+            }
+            else
+            {
+                double avg = dronesByModel.Average(t => t.BatteryHealth);
+                result += $"{model}: {avg.ToString("F2")}\n";
+            }
         }
         return result;
     }
@@ -183,10 +175,14 @@ public class SummeryDrones
              .OrderByDescending(x => x.Avg)
              .Take(3)
              .ToList();
-        return result +
-            "Analysis name: THE THREE MODELS WITH THE HIGHEST AVERAGE FLIGHT TIME\n" +
-            $"Model: {HighestAverageFly[0].Model} With average flight {HighestAverageFly[0].Avg.ToString("F2")}\n" +
-            $"Model: {HighestAverageFly[1].Model} With average flight {HighestAverageFly[0].Avg.ToString("F2")}\n" +
-            $"Model: {HighestAverageFly[2].Model} With average flight {HighestAverageFly[0].Avg.ToString("F2")}\n";
+        if (HighestAverageFly.Count == 0)
+        {
+            return result + "No results found\n";
+        }
+        foreach (var item in HighestAverageFly)
+        {
+            result += "Model: " + item.Model + " with average flight " + item.Avg.ToString("F2") + "\n";
+        }
+        return result;
     }
 }

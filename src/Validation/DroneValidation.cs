@@ -34,8 +34,8 @@ namespace DroneFleetDataProcessing.src
                 IsStatus(drone.Status) &&
                 BatteryHealthValidationByStatus(drone.BatteryHealth, drone.Status))
             {
-                Ids.Add(drone.Id);
-                SerialNumbers.Add(drone.SerialNumber);
+                
+                
 
                 return true;
             }
@@ -45,8 +45,10 @@ namespace DroneFleetDataProcessing.src
         {
             if (id <= 0 || Ids.Contains(id))
             {
+                Ids.Add(id);
                 return false;
             }
+            Ids.Add(id);
             return true;
         }
         public bool IsSerialNumber(string serialNumber)
@@ -57,6 +59,7 @@ namespace DroneFleetDataProcessing.src
             }
             if (SerialNumbers.Contains(serialNumber))
             {
+                SerialNumbers.Add(serialNumber);
                 return false;
             }
             string[] serial = serialNumber.Split('-');
@@ -77,7 +80,7 @@ namespace DroneFleetDataProcessing.src
             {
                 return false;
             }
-
+            SerialNumbers.Add(serialNumber);
             return true;
         }
         public bool IsModel(string model)
