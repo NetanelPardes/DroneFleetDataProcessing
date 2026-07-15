@@ -1,5 +1,6 @@
 ﻿using DroneFleetDataProcessing.src.Exeptions;
 using DroneFleetDataProcessing.src.interfaces;
+using DroneFleetDataProcessing.src.queries;
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
@@ -10,6 +11,7 @@ namespace DroneFleetDataProcessing.src
         private ILogger _logger;
         private DroneValidation _validation;
         private PathManager _pathManager;
+        int totalDrones = 0;
 
         public DronesManager(ILogger logger, DroneValidation validation, PathManager pathManager)
         {
@@ -29,6 +31,12 @@ namespace DroneFleetDataProcessing.src
             }
             return validDrons;
         }
+        public void GetSummary()
+        {
+            string path = _pathManager.getOutputPath("drones_clean.json");
+            List<Drone> drones = ReadDronesFile.Read(path);
+            SummeryDrones summeryDrones = new SummeryDrones(drones, totalDrones);
+        }
         public void go()
         {
             try
@@ -42,8 +50,8 @@ namespace DroneFleetDataProcessing.src
                 {
                     throw new DeserializationReturnedNullException("Deserialization returned null.");
                 }
-
-                if (myDroneList.Count == 0)
+                totalDrones = myDroneList.Count();
+                if (totalDrones == 0)
                 {
                     throw new EmptyDroneFileException("The raw drones file contains no records.");
                 }
@@ -80,6 +88,7 @@ namespace DroneFleetDataProcessing.src
 
                 //Step 5
                 _logger.WriteLog("Step 5: Performing analysis...");
+                GetSummary();
 
             }
             catch (FileNotFoundException ex)
