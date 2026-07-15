@@ -21,8 +21,8 @@ public class SummeryDrones
             $"{Summary()}" +
             $"{NonOptional()}\n" +
             $"{Top5()}\n" +
-            $"{AvilableDronesNoDuplicates}\n" +
-            $"{ByBase}\n" +
+            $"{AvilableDronesNoDuplicates()}\n" +
+            $"{ByBase()}\n" +
             $"{AverageBatteryHelth()}\n" +
             $"{HighestTotalCompleted()}\n" +
             $"{HighestAverageFlyHouersModels()}\n";
@@ -30,9 +30,9 @@ public class SummeryDrones
     private string Summary()
     {
         return $"PROCESSING SUMMARY\n" +
-            $"Total raw records:{_total}" +
-            $"Valid records:{_drones.Count()}" +
-            $"Rejected records:{_total - _drones.Count()}";
+            $"Total raw records:{_total}\n" +
+            $"Valid records:{_drones.Count()}\n" +
+            $"Rejected records:{_total - _drones.Count()}\n";
     }
     private string NonOptional()
     {
