@@ -36,14 +36,18 @@ namespace DroneFleetDataProcessing.src
             }
             return validDrons;
         }
-        public void RunSummary()
+        public string RunSummary()
         {
             string sourcePath = _pathManager.getOutputPath("drones_clean.json");
             List<Drone> drones = ReadDronesFile.Read(sourcePath);
             SummeryDrones summeryDrones = new SummeryDrones(drones, totalDrones);
             string result = summeryDrones.GetQueries();
+            return result;
+        }
+        public void WriteSummaryToFile(string summary)
+        {
             string resultPath = _pathManager.getOutputPath("analysis_report.txt");
-            File.WriteAllText(resultPath, result);
+            File.WriteAllText(resultPath, summary);
         }
         public void go()
         {
@@ -75,11 +79,12 @@ namespace DroneFleetDataProcessing.src
 
                 //Step 5
                 _logger.WriteLog("Step 5: Performing analysis...");
-                RunSummary();
+                string summary = RunSummary();
                 _logger.WriteLog("Analysis completed successfully");
 
                 //Step 6
                 _logger.WriteLog("Step 6: Generating report...");
+                WriteSummaryToFile(summary);
                 _logger.WriteLog($"Report generated successfully: analysis_report.txt ");
 
                 //Finaly
