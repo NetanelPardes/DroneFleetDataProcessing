@@ -6,16 +6,18 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DroneFleetDataProcessing.src.queries;
-
+//Department that manages the summary
 public class SummeryDrones
 {
     List<Drone> _drones;
     int _total;
+    //A constructor that initializes a list of drones
     public SummeryDrones(List<Drone> drones, int total)
     {
         _drones = drones;
         _total = total;
     }
+    //A function that calls all summary queries
     public string GetQueries()
     {
         return $"DRONE FLEET ANALYSIS REPORT\n\n" +
@@ -28,6 +30,7 @@ public class SummeryDrones
             $"{HighestTotalCompleted()}\n" +
             $"{HighestAverageFlyHouersModels()}\n";
     }
+    //A function that returns a general summary
     private string Summary()
     {
         return $"PROCESSING SUMMARY\n" +
@@ -35,6 +38,7 @@ public class SummeryDrones
             $"Valid records:{_drones.Count()}\n" +
             $"Rejected records:{_total - _drones.Count()}\n";
     }
+    //A function that returns the not Operational drones
     private string NonOptional()
     {
         string result = "NON-OPERATIONAL DRONES \n";
@@ -61,6 +65,7 @@ public class SummeryDrones
         }
         return result;
     }
+    //A function that returns the 5 drones with the most flight hours
     private string Top5()
     {
         string result = "TOP 5 DRONES BY FLIGHT HOURS\n";
@@ -89,6 +94,7 @@ public class SummeryDrones
         }
         return result;
     }
+    //A function that returns the module types
     private string AvilableDronesNoDuplicates()
     {
         string result = "AVAILABLE DRONE MODELS\n";
@@ -107,6 +113,7 @@ public class SummeryDrones
         return result;
 
     }
+    //A function that returns how many drones there are at each base
     private string ByBase()
     {
         string result = "DRONES BY BASE\n";
@@ -120,6 +127,7 @@ public class SummeryDrones
 
         return result;
     }
+    //A function that returns a battery average for each model type
     private string AverageBatteryHelth()
     {
         string result = "AVERAGE BATTERY HEALTH BY MODEL\n";
@@ -140,6 +148,7 @@ public class SummeryDrones
         }
         return result;
     }
+    //A function that returns the model with the most completed tasks
     private string HighestTotalCompleted()
     {
         string result = "MODEL WITH HIGHEST TOTAL COMPLETED MISSIONS\n";
@@ -157,6 +166,7 @@ public class SummeryDrones
             $"Model: {highestTotalComplete[0].Model}\nTotal completed missions: {highestTotalComplete[0].TotalMissions}\n";
 
     }
+    //A function that returns the five models with the most flight time
     private string HighestAverageFlyHouersModels()
     {
         string result = "SELECTED ADDITIONAL ANALYSIS\n";

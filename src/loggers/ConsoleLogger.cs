@@ -9,6 +9,7 @@ namespace DroneFleetDataProcessing.src.loggers;
 
 class ConsoleLogger : ILogger
 {
+    //Printing to console
     public void WriteLog(string message)
     {
         Console.WriteLine(message);
