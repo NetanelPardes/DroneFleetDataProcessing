@@ -1,6 +1,7 @@
 ﻿using DroneFleetDataProcessing.src.interfaces;
 using DroneFleetDataProcessing.src.loggers;
 using System;
+using System.Net.Http.Headers;
 namespace DroneFleetDataProcessing.src
 {
     class Program
@@ -11,8 +12,9 @@ namespace DroneFleetDataProcessing.src
             DroneValidation validation = new DroneValidation();
             PathManager pathManager = new PathManager();
             IDroneReader droneReader = new ReadDronesFile();
+            IDroneWriter droneWriter = new WriteDronesFile();
 
-            DronesManager dronesManager = new DronesManager(logger, validation, pathManager, droneReader);
+            DronesManager dronesManager = new DronesManager(logger, validation, pathManager, droneReader, droneWriter);
 
             dronesManager.go(pathManager.getInputRawPath("drones_raw.json"));
             dronesManager.go(pathManager.getInputTestScenariosPath("drones_all_invalid.json"));

@@ -14,13 +14,15 @@ namespace DroneFleetDataProcessing.src
         private PathManager _pathManager;
         int _totalDrones = 0;
         IDroneReader _droneReader;
+        IDroneWriter _droneWriter;
 
-        public DronesManager(ILogger logger, DroneValidation validation, PathManager pathManager, IDroneReader droneReader)
+        public DronesManager(ILogger logger, DroneValidation validation, PathManager pathManager, IDroneReader droneReader, IDroneWriter droneWriter)
         {
             _logger = logger;
             _validation = validation;
             _pathManager = pathManager;
             _droneReader = droneReader;
+            _droneWriter = droneWriter;
         }
         public List<Drone> ValidDrons(List<Drone> myDrones)
         {
@@ -71,7 +73,7 @@ namespace DroneFleetDataProcessing.src
 
                 //Step 3
                 _logger.WriteLog("Step 3: Saving clean data...");
-                FileSerialization.Write(_pathManager.getOutputPath("drones_clean.json"), myValidDroneList);
+                _droneWriter.Write(_pathManager.getOutputPath("drones_clean.json"), myValidDroneList);
                 _logger.WriteLog($"Clean data saved to: drones_clean.json");
 
                 //Step 4
