@@ -7,19 +7,21 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 namespace DroneFleetDataProcessing.src
 {
+    //A department that manages the running of the program
     public class DronesManager
     {
         private ILogger _logger;
         private DroneValidation _validation;
         private PathManager _pathManager;
         int totalDrones = 0;
-
+        //Manager Builder
         public DronesManager(ILogger logger, DroneValidation validation, PathManager pathManager)
         {
             _logger = logger;
             _validation = validation;
             _pathManager = pathManager;
         }
+        //Return of all operational drones
         public List<Drone> ValidDrons(List<Drone> myDrones)
         {
             List<Drone> validDrons = new List<Drone>();
@@ -36,6 +38,7 @@ namespace DroneFleetDataProcessing.src
             }
             return validDrons;
         }
+        //Running all summary functions and returning a text string
         public string RunSummary()
         {
             string sourcePath = _pathManager.getOutputPath("drones_clean.json");
@@ -44,11 +47,13 @@ namespace DroneFleetDataProcessing.src
             string result = summeryDrones.GetQueries();
             return result;
         }
+        //Writing to the summary file
         public void WriteSummaryToFile(string summary)
         {
             string resultPath = _pathManager.getOutputPath("analysis_report.txt");
             File.WriteAllText(resultPath, summary);
         }
+        //The six stages of the program
         public void go(string source)
         {
             try

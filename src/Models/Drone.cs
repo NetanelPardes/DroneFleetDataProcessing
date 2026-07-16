@@ -1,6 +1,7 @@
 ﻿using System;
 namespace DroneFleetDataProcessing.src;
 
+//Drone Department
 public class Drone
 {
     public int Id { get; }
@@ -23,6 +24,7 @@ public class Drone
 
     public string Status { get; }
 
+    //Constructor of the drone class
     public Drone(int id, 
         string serialNumber, 
         string model, 

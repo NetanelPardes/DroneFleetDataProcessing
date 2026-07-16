@@ -5,6 +5,7 @@ namespace DroneFleetDataProcessing.src
 {
     class Program
     {
+        //The main program
         static void Main()
         {
             ILogger logger = new ConsoleLogger();

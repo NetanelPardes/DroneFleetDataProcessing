@@ -2,9 +2,10 @@ using DroneFleetDataProcessing.src.Exeptions;
 using System.Text.Json;
 
 namespace DroneFleetDataProcessing.src;
-
+//A class that manages reading the Jason file
 class ReadDronesFile
 {
+    //Reading from the file and converting to drones
     public static List<Drone> Read(string path)
     {
         string text = File.ReadAllText(path);
