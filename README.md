@@ -36,6 +36,13 @@ Consts : ערכים קבועים
 
  public interface ILogger { public void WriteLog(string message); } : מתחייב לכתיבת הודעה
 
+ public interface IPathManager
+{
+    public string getInputRawPath(string name);
+    public string getOutputPath(string name);
+    public string getInputTestScenariosPath(string name);
+} : מתחייב לניהול נתיבי מקור ומטרה
+
 ## חלוקת העבודה
 
 ### עבודה משותפת:
