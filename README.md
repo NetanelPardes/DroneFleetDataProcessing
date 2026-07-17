@@ -12,19 +12,29 @@ Drone : מייצג טיפוס רחפן
 
 Validation : מוודא תקינות פרטי רחפן
 
-QueryDrones : מבצע שאילתות סטטיסטיקה
+SummeryDrones : מבצע שאילתות סטטיסטיקה
 
-ReadDronesFile : קריאת קובץ הקלט.
+ReadDronesFile : IDroneReader : קריאת קובץ הקלט.
 
-FileSerialization : כתיבת רשימת האובייקטים לקובץ גייסון
+WriteDronesFile : IDroneWriter : כתיבת רשימת האובייקטים לקובץ גייסון
 
-WriteTextToFile : כתיבת טקסט (סטטיסטיקה) לקובץ טקסט
+((WriteTextToFile : כתיבת טקסט (סטטיסטיקה) לקובץ טקסט))
 
 DronesManager : מנהל תהליך המערכת
 
-Logger: מדפיס למסך
+ConsoleLogger : ILogger: מדפיס למסך
 
 PathManager : מנהל את תהליך הנתיבים במערכת
+
+Consts : ערכים קבועים
+
+## interfaces
+
+ IDroneReader { public List<Drone> Read(string source); } : מתחייב לקריאת הרחפנים לרשימה
+
+ public void Write(string path, List<Drone> drones); : מתחייב לכתיבת רשימת רחפנים לפלט הרצוי
+
+ public interface ILogger { public void WriteLog(string message); } : מתחייב לכתיבת הודעה
 
 ## חלוקת העבודה
 
@@ -32,21 +42,9 @@ PathManager : מנהל את תהליך הנתיבים במערכת
 
 Program
 
-Manager
+DronesManager
 
-Exceptions
-
-QueryDrones
-
-### יצחק:
-
-drone
-
-ReadDronesFile
-
-FileSerialization
-
-logger
+SummeryDrones
 
 ### נתנאל:
 
@@ -54,8 +52,19 @@ Validation
 
 PathManager
 
-## todo list
-פייפליין
-שאילתות
-שגיאות
+all Exceptions
+
+### יצחק:
+
+Drone
+
+ReadDronesFile
+
+WriteDronesFile
+
 logger
+
+consts
+
+all interfaces
+
