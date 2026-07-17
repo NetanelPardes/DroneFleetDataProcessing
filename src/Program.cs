@@ -9,7 +9,6 @@ namespace DroneFleetDataProcessing.src
         //The main program
         static void Main()
         {
-
             ILogger logger = new ConsoleLogger();
             DroneValidation validation = new DroneValidation();
             PathManager pathManager = new PathManager();
@@ -23,7 +22,6 @@ namespace DroneFleetDataProcessing.src
             dronesManager.go(pathManager.getInputTestScenariosPath("drones_empty.json"));
             dronesManager.go(pathManager.getInputTestScenariosPath("drones_malformed.json"));
             dronesManager.go(pathManager.getInputTestScenariosPath("drones_null.json"));
-
         }
     }
 }
