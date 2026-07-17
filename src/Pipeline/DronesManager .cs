@@ -12,13 +12,13 @@ namespace DroneFleetDataProcessing.src
     {
         private ILogger _logger;
         private DroneValidation _validation;
-        private PathManager _pathManager;
+        private IPathManager _pathManager;
         IDroneReader _droneReader;
         IDroneWriter _droneWriter;
         int _totalDrones = 0;
 
         //Manager Builder
-        public DronesManager(ILogger logger, DroneValidation validation, PathManager pathManager, IDroneReader droneReader, IDroneWriter droneWriter)
+        public DronesManager(ILogger logger, DroneValidation validation, IPathManager pathManager, IDroneReader droneReader, IDroneWriter droneWriter)
         {
             _logger = logger;
             _validation = validation;

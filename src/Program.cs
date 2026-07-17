@@ -11,7 +11,7 @@ namespace DroneFleetDataProcessing.src
         {
             ILogger logger = new ConsoleLogger();
             DroneValidation validation = new DroneValidation();
-            PathManager pathManager = new PathManager();
+            IPathManager pathManager = new PathManager();
             IDroneReader droneReader = new ReadDronesFile();
             IDroneWriter droneWriter = new WriteDronesFile();
 
